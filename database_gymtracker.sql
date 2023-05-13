@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS gymTracker;
 use gymTracker;
 
-CREATE TABLE `user` (
+CREATE TABLE `User` (
     userId INT NOT NULL AUTO_INCREMENT,
     userName VARCHAR(32) NOT NULL,
     email VARCHAR(32) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE `user` (
     PRIMARY KEY (userId)
 );
 
-CREATE TABLE `tracking` (
+CREATE TABLE `Tracking` (
     trackingId INT NOT NULL AUTO_INCREMENT,
     userId INT NOT NULL,
     `date` DATE NOT NULL,
@@ -25,26 +25,26 @@ CREATE TABLE `tracking` (
     PRIMARY KEY (trackingId)
 );
 
-ALTER TABLE `tracking`
+ALTER TABLE `Tracking`
     ADD CONSTRAINT `trackingUser`
         FOREIGN KEY (userId)
-        REFERENCES `user` (userId);
+        REFERENCES `User` (userId);
 
-CREATE TABLE `nutrition` (
+CREATE TABLE `Nutrition` (
     nutritionId INT NOT NULL AUTO_INCREMENT,
     food VARCHAR(64) NOT NULL,
     calo INT NOT NULL,
     PRIMARY KEY (nutritionId)
 );
 
-CREATE TABLE `challenge` (
+CREATE TABLE `Challenge` (
     challengeId INT NOT NULL AUTO_INCREMENT,
     challengeDescription VARCHAR(255) NOT NULL,
     challengeStatus VARCHAR(32) NOT NULL,
     PRIMARY KEY (challengeId)
 );
 
-CREATE TABLE `exercise` (
+CREATE TABLE `Exercise` (
     exerciseId INT NOT NULL AUTO_INCREMENT,
     exerciseType VARCHAR(64) NOT NULL,
     exerciseDescription VARCHAR(255) NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `exercise` (
     PRIMARY KEY (exerciseId)
 );
 
-CREATE TABLE `planning` (
+CREATE TABLE `Planning` (
     planningId INT NOT NULL AUTO_INCREMENT,
     `date` DATE NOT NULL,
     userId INT NOT NULL,
@@ -64,14 +64,21 @@ CREATE TABLE `planning` (
     PRIMARY KEY (planningId)
 );
 
-ALTER TABLE `planning` ADD CONSTRAINT planningUser
-    FOREIGN KEY (userId)
-    REFERENCES `user` (userId);
+CREATE TABLE `Friend` (
+    friendId INT NOT NULL AUTO_INCREMENT,
+    userId1 INT NOT NULL,
+    userId2 INT NOT NULL,
+    challengeId INT NOT NULL,
+    PRIMARY KEY (friendId)
+);
 
-ALTER TABLE `planning` ADD CONSTRAINT planningExercise
-    FOREIGN KEY (exerciseId)
-    REFERENCES `exercise`(exerciseId);
+ALTER TABLE `Friend` 
+    ADD CONSTRAINT friendUser1 FOREIGN KEY (userId1) REFERENCES `User` (userId),
+    ADD CONSTRAINT friendUser2 FOREIGN KEY (userId2) REFERENCES `User` (userId),
+    ADD CONSTRAINT friendChallenge FOREIGN KEY (challengeId) REFERENCES `Challenge` (challengeId),
+    ADD CONSTRAINT checkfriendId CHECK (userId1 <> userId2);
 
-ALTER TABLE `planning` ADD CONSTRAINT planningNutrition
-    FOREIGN KEY (nutritionId)
-    REFERENCES `nutrition`(nutritionId);
+ALTER TABLE `Planning` 
+    ADD CONSTRAINT planningUser FOREIGN KEY (userId) REFERENCES `User` (userId),
+    ADD CONSTRAINT planningExercise FOREIGN KEY (exerciseId) REFERENCES `Exercise`(exerciseId),
+    ADD CONSTRAINT planningNutrition FOREIGN KEY (nutritionId) REFERENCES `Nutrition`(nutritionId);
