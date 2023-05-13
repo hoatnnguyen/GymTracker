@@ -117,14 +117,14 @@ VALUES
 INSERT INTO Challenge (challengeDescription, challengeStatus)
 VALUES 
     ('Lose 5 pounds in 1 month', 'ongoing'),
-    ('Run 10 miles per week', 'completed');
+    ('Run 10 miles per week', 'completed'),
     ('Do 50 push-ups in one set', 'Not started');
 
 -- Insert data into Exercise table
 INSERT INTO Exercise (exerciseType, exerciseDescription, timeStart, timeEnd, `set`, rep)
 VALUES 
     ('Cardio', 'Running on Treadmill', '2022-01-01 10:00:00', '2022-01-01 11:00:00', 3, 10),
-    ('Strength', 'Bench Press', '2022-01-02 10:00:00', '2022-01-02 11:00:00', 3, 10);
+    ('Strength', 'Bench Press', '2022-01-02 10:00:00', '2022-01-02 11:00:00', 3, 10),
     ('Cardio', 'Cycling', '2023-05-09 10:00:00', '2023-05-09 11:00:00', 1, 45),
     ('Strength', 'Squats', '2023-05-09 11:00:00', '2023-05-09 12:00:00', 3, 8),
     ('Cardio', 'Jump rope', '2023-05-09 12:00:00', '2023-05-09 13:00:00', 1, 20);
