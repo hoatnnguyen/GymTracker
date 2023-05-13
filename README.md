@@ -23,4 +23,4 @@ GymTracker is a Web app designed to help users achieve their fitness goals by pr
    ```
    % docker run -d -p 6603:3306 --name gymtracker_mysql_container gymtracker_mysql
    ```
-7. Verify from MySQL Workbench. In MySQL Workbench, create a connection to `172.17.0.1` with user `root` and password `password`. You will see the database gymtracker.
+7. Verify from MySQL Workbench. In MySQL Workbench, create a connection to `172.17.0.1` and port `6603` with user `root` and password `password`. You will see the database gymtracker.
