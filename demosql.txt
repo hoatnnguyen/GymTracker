@@ -1,0 +1,39 @@
+SELECT * FROM User;
+
+SELECT * FROM Tracking;
+
+SELECT * FROM Tracking WHERE userid = (SELECT userid FROM User WHERE username = 'selenatn');
+
+
+
+---------------------------------------------------------
+SELECT * FROM Exercise;
+SELECT * FROM Planning;
+
+SELECT * FROM Exercise 
+INNER JOIN Planning ON Planning.exerciseId = Exercise.exerciseId 
+WHERE userId = (SELECT userId FROM User WHERE username='selenatn');
+-------------------------------------------------------------------------
+SELECT * FROM Nutrition;
+
+SELECT * FROM Nutrition
+    INNER JOIN Planning ON Planning.nutritionId = Nutrition.nutritionId
+    WHERE userId = (SELECT userId FROM User WHERE username = 'selenatn');
+
+---------------------------------------------------------------------------------------------------
+SELECT * FROM Friend;
+SELECT firstName, lastName FROM User
+    INNER JOIN Friend ON User.userId = Friend.userId1 OR User.userId = Friend.userId2
+    WHERE (userId1 = (SELECT userId FROM User WHERE username = 'giahan')
+    OR userId2 = (SELECT userId from User WHERE userName = 'giahan'))
+    AND NOT userName = 'giahan';
+
+
+
+----------------------------
+SELECT * FROM Challenge;
+
+SELECT challengeDescription,challengeStatus,firstname FROM ((Challenge 
+INNER JOIN Friend ON Challenge.challengeId = Friend.challengeId) 
+INNER JOIN User ON User.userID = Friend.userid2) 
+WHERE Friend.userId1 = (SELECT userId FROM User WHERE username = 'giahan');
